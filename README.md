@@ -17,9 +17,17 @@ This folder contains a PowerShell script that installs and configures the commun
 - Run as Administrator (the script will auto-elevate)
 - Steam must be running before launching the game
 
-### Usage
-Easiest: double-click `Install-Dota684.bat` (it auto-elevates and runs with sensible defaults: prerequisites + hosts block + opens queue). If you prefer PowerShell:
+### Usage (Recommended: GUI)
+- Double‑click `Install/Install-Dota684-GUI.bat` and follow the wizard.
+- Or run the GUI directly via PowerShell:
 
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+cd <path-to-repo>\Install
+powershell -ExecutionPolicy Bypass -File .\Install-Dota684-GUI.ps1
+```
+
+### Command‑line (alternative)
 ```powershell
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 cd <path-to-repo>\Install
@@ -44,7 +52,6 @@ ZIPs are extracted using Windows' `Expand-Archive`. 7z requires 7-Zip on PATH.
 - Mega: https://mega.nz/file/UPgSgAxS#Snc3ITt7mtm-qfW38Ye0j9eBU_Es20G8TC9N_Q8f5Sw
 - MediaFire: https://www.mediafire.com/file/37a334itg8iv6zz/Dota_2_6.84_Source_1_%281504%29.7z/file
 
-Note: To keep the installer simple and credential-free, built-in download (torrent/mega/depot) has been removed. Please download the archive yourself and point the installer to it.
 
 ### Launching and playing
 - Double-click the Desktop shortcut `Launch Dota 6.84.bat` (ensure Steam is open)
