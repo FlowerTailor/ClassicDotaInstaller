@@ -16,9 +16,14 @@ This folder contains a PowerShell script that installs and configures the commun
 - Windows 10/11
 - Run as Administrator (the script will auto-elevate)
 - Steam must be running before launching the game
+- You need an archive of the original game data 
 
-### Usage (Recommended: GUI)
-- Double‑click `Install/Install-Dota684-GUI.bat` and follow the wizard.
+### HOW TO USE (Recommended: GUI)
+- Double‑click `Install/Install-Dota684-GUI.bat` and follow the wizard.  Thats it! select your archive and if you want, customize your download folder. 
+- The script should install all the prerequisites and add the firewall exceptions and configuration autoamtically. 
+- Not possible to offer integrated downloading of the patches yet. 
+
+
 - Or run the GUI directly via PowerShell:
 
 ```powershell
