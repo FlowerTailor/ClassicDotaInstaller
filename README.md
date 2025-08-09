@@ -60,6 +60,7 @@ ZIPs are extracted using Windows' `Expand-Archive`. 7z requires 7-Zip on PATH.
 
 ### Launching and playing
 - Double-click the Desktop shortcut `Launch Dota 6.84.bat` (ensure Steam is open)
+- If there is no desktop shortcut just go to the selected install folder of the game and double-click the dota.exe
 - Sign in and queue: `https://dota2classic.com/Auth/signin?redirectUrl=/&authProvider=Steam` then `https://dota2classic.com/queue`
 - Alternatively use the Discord queue channels after linking your account
 
@@ -83,5 +84,7 @@ bind "a" "mc_attack; +sixense_left_click; -sixense_left_click"
 - Overlays: disable Discord/GeForce Experience/RivaTuner overlays
 
 Linux/Mac users: see `https://dota2classic.com/Download` for Proton/Wine instructions.
+
+Let me know if there are any features you desire for version 2! 
 
 
