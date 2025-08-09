@@ -279,12 +279,10 @@ function Expand-ArchiveSmart {
         Expand-Archive -Path $ArchivePath -DestinationPath $Destination -Force
         Write-Step "ZIP extraction completed."
     } elseif ($ext -eq '.7z') {
-        if (-not (Test-Command '7z')) {
-            throw "7z.exe not found on PATH. Please install 7-Zip or provide a ZIP archive."
-        }
+        $sevenZip = Ensure-7Zip
         Write-Step "Extracting 7z with 7-Zip (live progress below)..."
         # Show 7z progress in the same console
-        & 7z x -y "-o$Destination" "$ArchivePath" -bso1 -bsp1
+        & $sevenZip x -y "-o$Destination" "$ArchivePath" -bso1 -bsp1
         if ($LASTEXITCODE -ne 0) { throw "7-Zip exited with code $LASTEXITCODE during extraction." }
         Write-Step "7z extraction completed."
     } else {
@@ -306,6 +304,42 @@ function Ensure-Aria2 {
     $exeFound = Get-ChildItem -Path $ariaTemp -Recurse -Filter 'aria2c.exe' -File | Select-Object -First 1
     if (-not $exeFound) { throw "Failed to prepare aria2c.exe" }
     return $exeFound.FullName
+}
+
+function Ensure-7Zip {
+    # Try PATH first
+    $cmd = Get-Command '7z' -ErrorAction SilentlyContinue
+    if ($cmd) { return $cmd.Source }
+
+    # Common install locations
+    $candidates = @(
+        (Join-Path ${env:ProgramFiles} '7-Zip\7z.exe'),
+        (Join-Path ${env:ProgramFiles(x86)} '7-Zip\7z.exe')
+    )
+    foreach ($c in $candidates) { if ($c -and (Test-Path -LiteralPath $c)) { return $c } }
+
+    if ($NoAdmin) {
+        throw "7z.exe not found on PATH. Please install 7-Zip or provide a ZIP archive."
+    }
+
+    # Attempt silent install of 7-Zip
+    $is64 = [Environment]::Is64BitOperatingSystem
+    $url = if ($is64) { 'https://www.7-zip.org/a/7z2409-x64.exe' } else { 'https://www.7-zip.org/a/7z2409.exe' }
+    $tempDir = Join-Path $env:TEMP ('sevenzip_' + [Guid]::NewGuid().ToString('N'))
+    Ensure-Directory $tempDir
+    $installer = Join-Path $tempDir '7zip_setup.exe'
+    Write-Step "Downloading 7-Zip..."
+    Invoke-WebRequest -Uri $url -OutFile $installer -UseBasicParsing
+    Write-Step "Installing 7-Zip (silent)..."
+    Start-Process -FilePath $installer -ArgumentList '/S' -Wait
+
+    foreach ($c in $candidates) { if ($c -and (Test-Path -LiteralPath $c)) { return $c } }
+
+    # As a last resort, try PATH again
+    $cmd2 = Get-Command '7z' -ErrorAction SilentlyContinue
+    if ($cmd2) { return $cmd2.Source }
+
+    throw "7-Zip installation did not complete. Please install 7-Zip manually or use a ZIP archive."
 }
 
 function Download-ByTorrent {
