@@ -10,8 +10,7 @@ PRESS THE GREEN "CODE" BUTTON AND SELECT "DOWNLOAD ZIP" to obtain the installer.
 - Adds Windows Firewall allow rules for the game
 - Optionally blocks `www.dota2.com` in `hosts` to reduce lag
 - Optionally installs prerequisites (DirectX June 2010, VC++ x86/x64)
-- Creates a Desktop launcher: `Launch Dota 6.84.bat`
-- Optionally opens the queue/sign-in pages
+-  opens the queue/sign-in pages
 
 ### Requirements
 - Windows 10/11
