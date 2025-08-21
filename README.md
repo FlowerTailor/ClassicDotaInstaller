@@ -1,6 +1,8 @@
 ## Dota 2 Classic 6.84 One-Click Installer (Windows)
 
 This folder contains a PowerShell script that installs and configures the community Dota 2 Classic 6.84 client on Windows. 
+
+NON-TECHNICAL PEOPLE PLEASE READ:: 
 PRESS THE GREEN "CODE" BUTTON AND SELECT "DOWNLOAD ZIP" to obtain the installer. 
 
 ### What it does
